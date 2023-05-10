@@ -2,6 +2,7 @@ import type { Configuration } from 'webpack';
 import path from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import LoadablePlugin from '@loadable/webpack-plugin';
+import babelLoader from './loaders/babel-loader';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -19,10 +20,7 @@ const config: Configuration = {
   ],
   module: {
     rules: [
-      {
-        test: /\.(ts|tsx)$/i,
-        loader: 'ts-loader',
-      },
+      { ...babelLoader },
       {
         exclude: ['/node_modules/'],
         test: /\.css$/i,

@@ -32,5 +32,9 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
     '@typescript-eslint/explicit-function-return-type': 'off',
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/member-delimiter-style': 'off',
+    'react/display-name': 'off',
+    '@typescript-eslint/promise-function-async': 'off',
   },
 };

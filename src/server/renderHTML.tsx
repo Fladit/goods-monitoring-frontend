@@ -1,31 +1,45 @@
-import type { Request, Response } from 'express';
 import { ChunkExtractor } from '@loadable/server';
 import path from 'path';
 import App from '../App';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
-import gullImage from './Gull_portrait_ca_usa.jpg';
+import type { AppState } from '../store/store';
+import { createStore } from '../store/store';
+import { Provider } from 'react-redux';
+import { findRouteController } from '../app/router/routes/findRoute';
+import { PageInitSuccess } from '../store/actions/PageInitSuccess';
 
 const statsFile = path.resolve(__dirname, '..', '..', 'dist', 'loadable-stats.json');
 
-export const renderHTML = (req: Request, res: Response) => {
-  const location = req.url;
-  const extractor = new ChunkExtractor({ statsFile });
+export const renderHTML = async (location: string) => {
+  const store = createStore();
+
+  const initialRequests = findRouteController(location);
+  const initialStore = initialRequests && await Promise.all(initialRequests.filter(request => Boolean(request)).map(request => request()));
+  console.log('initalStore', location, initialStore, initialRequests);
+  if (initialStore) {
+    store.dispatch(PageInitSuccess(Object.assign({}, ...initialStore)));
+  }
+
+  const extractor = new ChunkExtractor({ statsFile, publicPath: '/' });
   const jsx = extractor.collectChunks(
-      <StaticRouter location={location}>
+      <Provider store={store}>
+        <StaticRouter location={location}>
           <App/>
-      </StaticRouter>,
+        </StaticRouter>
+      </Provider>,
   );
   const html = renderToString(jsx);
   const scriptTags = extractor.getScriptTags();
   const styleTags = extractor.getStyleTags();
   const linkTags = extractor.getLinkTags();
 
-  const renderedHTML = collectHTML(html, scriptTags, styleTags, linkTags);
-  res.send(renderedHTML);
+  const preloadedReduxState = store.getState();
+
+  return collectHTML(html, scriptTags, styleTags, linkTags, preloadedReduxState);
 };
 
-function collectHTML (html: string, scriptTags: string, styleTags: string, linkTags: string) {
+function collectHTML (html: string, scriptTags: string, styleTags: string, linkTags: string, reduxState: AppState) {
   return (
     `
   <html lang="ru">
@@ -37,6 +51,11 @@ function collectHTML (html: string, scriptTags: string, styleTags: string, linkT
   <body>
     <div id="root">${html}</div>
     ${scriptTags}
+    <script>
+          window.__INITIAL_STATE__ = ${JSON.stringify(reduxState).replace(
+        /</g,
+        '\\u003c')}
+    </script>
   </body>
   </html>`);
 }

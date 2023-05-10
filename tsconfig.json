@@ -12,7 +12,7 @@
     "allowJs": true,
     "moduleResolution": "node",
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
   "exclude": ["**/*.d.ts","dist", "node_modules"],
   "ts-node": {
     "compilerOptions": {

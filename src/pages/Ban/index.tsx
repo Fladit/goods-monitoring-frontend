@@ -1,7 +1,9 @@
-export const Ban = () => {
-    return (
+const Ban = () => {
+  return (
         <div>
             Ban!
         </div>
-    );
+  );
 };
+
+export default Ban;
