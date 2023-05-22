@@ -23,7 +23,15 @@ const config: Configuration = {
       {
         exclude: ['/node_modules/'],
         test: /\.css$/i,
-        use: [stylesHandler, 'css-loader'],
+        use: [{
+          loader: 'css-loader',
+          options: {
+            modules: {
+              exportOnlyLocals: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+          },
+        }],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,

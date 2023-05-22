@@ -1,0 +1,6 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    margin-top: calc(var(--header-height) + 24px);
+    margin-left: var(--sidebar-width);
+}

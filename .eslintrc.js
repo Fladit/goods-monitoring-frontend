@@ -4,6 +4,7 @@ module.exports = {
     es2021: true,
     node: true,
     commonjs: true,
+    jest: true,
   },
   extends: [
     'plugin:react/recommended',
@@ -36,5 +37,6 @@ module.exports = {
     '@typescript-eslint/member-delimiter-style': 'off',
     'react/display-name': 'off',
     '@typescript-eslint/promise-function-async': 'off',
+    '@typescript-eslint/prefer-ts-expect-error': 'off',
   },
 };

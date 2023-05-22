@@ -7,6 +7,14 @@ import babelLoader from './loaders/babel-loader';
 const isProduction = process.env.NODE_ENV === 'production';
 
 const stylesHandler = MiniCssExtractPlugin.loader;
+const cssLoader = {
+  loader: 'css-loader',
+  options: {
+    modules: {
+      localIdentName: '[name]__[local]--[hash:base64:5]',
+    },
+  },
+};
 
 const config: Configuration = {
   entry: path.resolve(__dirname, '..', 'client', 'client.tsx'),
@@ -24,7 +32,7 @@ const config: Configuration = {
       {
         exclude: ['/node_modules/'],
         test: /\.css$/i,
-        use: [stylesHandler, 'css-loader'],
+        use: [stylesHandler, cssLoader],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,

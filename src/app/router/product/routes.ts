@@ -1,5 +1,4 @@
 import { CATEGORY_FOR_REQUEST, getProductByCategory } from '../../../resources/requests/server/landing';
-import { CATEGORY_NAMES } from '../../entities/Category';
 import ProductsPage from '../../../pages/Products';
 
 export const PRODUCTS_ROUTE = {

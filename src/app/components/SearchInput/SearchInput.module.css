@@ -1,0 +1,15 @@
+.root {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-radius: 10px;
+    background: #F2F2F2;
+}
+
+.input {
+    flex-grow: 1;
+}
+
+.icon {
+    color: #BDBDBD;
+}

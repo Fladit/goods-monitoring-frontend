@@ -1,7 +1,7 @@
 import { serverAxios } from '../../../axios/serverAxios';
 import type { IResponseProductsByCategory } from '../../../../app/entities/Product';
-import { AxiosError } from 'axios';
-import type { ValueOf } from '../../../../app/entities/utils/ValueOf';
+import type { AxiosError } from 'axios';
+import type { ValueOf } from '../../../../app/utils/ValueOf';
 
 export const CATEGORY_FOR_REQUEST = {
   MILK: 'milk',
@@ -13,7 +13,10 @@ export const getProductByCategory = async (category: ValueOf<typeof CATEGORY_FOR
   try {
     const response = await serverAxios.get<IResponseProductsByCategory>(`/products/${category}`);
     return { productsInfo: response.data };
-  } catch (e: AxiosError) {
-    console.log(e.response.data, category);
+  } catch (e: unknown) {
+    const error = e as AxiosError;
+
+    // @ts-ignore
+    console.log(error.response.data, category);
   }
 };

@@ -1,4 +1,4 @@
-import type { ValueOf } from './utils/ValueOf';
+import type { ValueOf } from '../utils/ValueOf';
 
 export const CATEGORY_NAMES = {
   MILK: 'Молочные продукты',
