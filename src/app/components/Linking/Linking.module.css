@@ -1,0 +1,21 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 8px;
+}
+
+.link {
+    padding: 18px 10px;
+    background: #F2F2F2;
+    border-radius: 10px;
+
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #828282;
+    text-decoration: none;
+
+    min-width: 70px;
+    text-align: center;
+}
